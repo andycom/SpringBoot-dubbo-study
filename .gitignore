@@ -2,3 +2,11 @@
 /dubbo-api/target/
 /dubbo-consumer/target/
 /dubbo-provider/target/
+/.idea/
+/SpringBoot-dubbo-study.iml
+/dubbo-api/dubbo-api.iml
+/dubbo-consumer/dubbo-consumer.iml
+/dubbo-consumer/dubbo-consumer.ipr
+/dubbo-consumer/dubbo-consumer.iws
+/dubbo-provider/dubbo-provider.iml
+
