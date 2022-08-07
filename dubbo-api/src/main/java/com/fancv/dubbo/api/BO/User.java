@@ -9,7 +9,6 @@ import java.io.Serializable;
  *
  */
 @Builder
-@Configuration
 public class User implements Serializable {
 
     private String name;
