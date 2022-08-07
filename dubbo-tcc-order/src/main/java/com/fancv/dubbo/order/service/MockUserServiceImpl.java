@@ -1,4 +1,4 @@
-package com.fancv.dubbo.consumer.service;
+package com.fancv.dubbo.order.service;
 
 import com.fancv.dubbo.api.BO.User;
 import com.fancv.dubbo.api.service.UserService;
