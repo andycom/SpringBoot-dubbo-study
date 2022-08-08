@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 /**
  * Created by twinkle.zhou on 16/11/11.
  */
-@DubboService(version = "1.0.0")
+@DubboService(version = "1.0.0",timeout = 5000)
 public class CapitalAccountServiceImpl implements CapitalAccountService {
 
     @Autowired

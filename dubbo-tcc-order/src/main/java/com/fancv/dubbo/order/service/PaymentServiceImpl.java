@@ -21,10 +21,10 @@ import java.util.Calendar;
 @Service
 public class PaymentServiceImpl {
 
-    @DubboReference(check = false)
+    @DubboReference(check = false,version = "1.0.0", timeout = 5000 )
     CapitalTradeOrderService capitalTradeOrderService;
 
-    @DubboReference(check = false)
+    @DubboReference(check = false,validation = "1.0.0",timeout = 5000)
     RedPacketTradeOrderService redPacketTradeOrderService;
 
     @Autowired

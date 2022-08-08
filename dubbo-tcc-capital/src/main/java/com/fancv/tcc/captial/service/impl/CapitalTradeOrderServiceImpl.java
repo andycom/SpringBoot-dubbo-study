@@ -18,7 +18,7 @@ import java.util.Calendar;
 /**
  * Created by changming.xie on 4/2/16.
  */
-@DubboService(version = "1.0.0")
+@DubboService(version = "1.0.0", timeout = 5000)
 public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
     @Autowired

@@ -71,6 +71,10 @@ spring:
   application:
     name: dubboTccOrder
 dubbo:
+  provider:
+    timeout: 5000
+  consumer:
+    timeout: 5000
   registry:
     address: zookeeper://192.168.0.23:2181
   application:

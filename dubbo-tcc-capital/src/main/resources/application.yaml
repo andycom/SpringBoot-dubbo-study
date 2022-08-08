@@ -60,7 +60,7 @@ dubbo:
     base-packages: com.fancv.tcc.captial.service.impl
   protocol:
     name: dubbo
-    port: 20880
+    port: 20881
   registry:
     address: zookeeper://192.168.0.23:2181
   application:
