@@ -25,10 +25,10 @@ public class PaymentServiceImpl {
     @DubboReference(check = true, version = "1.0.0", timeout = 5000, retries = 0)
     CapitalTradeOrderService capitalTradeOrderService;
 
-    @DubboReference(check = false , validation = "1.0.0", timeout = 5000, retries = 0)
+    @DubboReference(check = false , version = "1.0.0", timeout = 5000, retries = 0)
     RedPacketTradeOrderService redPacketTradeOrderService;
 
-    @DubboReference(check = true , validation = "1.0.0", timeout = 5000, retries = 0)
+    @DubboReference(check = true , version = "1.0.0", timeout = 5000, retries = 0)
     CardService cardService;
 
     @Autowired
