@@ -8,13 +8,9 @@
 
 springboot +dubbo +ttc 已正常运行
 
-## 遗留问题
+# 库存核销demo
 
-加入机器上装有虚拟机，dubbo 会误判ip 提示no provider 
-
-分布式事务只验证了异常情况，
-
-dubbo 判断ip 的问题 再研究
+todo
 
 
 
