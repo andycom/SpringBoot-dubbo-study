@@ -9,6 +9,7 @@
         <module>dubbo-tcc-order</module>
         <module>dubbo-tcc-redpacket</module>
         <module>dubbo-tcc-capital</module>
+        <module>dubbo-tcc-service</module>
     </modules>
 
     <parent>

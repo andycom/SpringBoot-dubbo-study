@@ -2,6 +2,7 @@ package com.fancv.dubbo.order.service;
 
 import com.fancv.dubbo.api.capital.CapitalTradeOrderService;
 import com.fancv.dubbo.api.capital.dto.CapitalTradeOrderDto;
+import com.fancv.dubbo.api.card.CardService;
 import com.fancv.dubbo.api.redpacket.RedPacketTradeOrderService;
 import com.fancv.dubbo.api.redpacket.dto.RedPacketTradeOrderDto;
 import com.fancv.dubbo.order.domain.entity.Order;
@@ -27,6 +28,9 @@ public class PaymentServiceImpl {
     @DubboReference(check = false , validation = "1.0.0", timeout = 5000, retries = 0)
     RedPacketTradeOrderService redPacketTradeOrderService;
 
+    @DubboReference(check = true , validation = "1.0.0", timeout = 5000, retries = 0)
+    CardService cardService;
+
     @Autowired
     OrderRepository orderRepository;
 
@@ -38,6 +42,7 @@ public class PaymentServiceImpl {
 
 
         try {
+            String a = cardService.record(11);
             String result = capitalTradeOrderService.record(buildCapitalTradeOrderDto(order));
 
             String result2 = redPacketTradeOrderService.record(buildRedPacketTradeOrderDto(order));
