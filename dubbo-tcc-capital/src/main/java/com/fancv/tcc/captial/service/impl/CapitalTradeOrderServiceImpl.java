@@ -6,6 +6,7 @@ import com.fancv.tcc.captial.entity.CapitalAccount;
 import com.fancv.tcc.captial.entity.TradeOrder;
 import com.fancv.tcc.captial.repository.CapitalAccountRepository;
 import com.fancv.tcc.captial.repository.TradeOrderRepository;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.mengyun.tcctransaction.api.Compensable;
@@ -18,7 +19,8 @@ import java.util.Calendar;
 /**
  * Created by changming.xie on 4/2/16.
  */
-@DubboService(version = "1.0.0", timeout = 5000)
+@DubboService(version = "1.0.0", timeout = 5000, retries = 0)
+@Log4j
 public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
     @Autowired
@@ -33,13 +35,14 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
     public String record(CapitalTradeOrderDto tradeOrderDto) {
 
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(100L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("capital try record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
 
+        log.info(Thread.currentThread().getName()+ "capital try record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
+        System.out.println(Thread.currentThread().getName()+" "+tradeOrderDto.getMerchantOrderNo()+"  capital try record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
 
         TradeOrder foundTradeOrder = tradeOrderRepository.findByMerchantOrderNo(tradeOrderDto.getMerchantOrderNo());
 
@@ -67,7 +70,6 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
                 //this exception may happen when insert trade order concurrently, if happened, ignore this insert operation.
             }
         }
-
         return "success";
     }
 
@@ -78,8 +80,8 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("capital confirm record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
-
+        log.info("capital confirm record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
+        System.out.println(Thread.currentThread().getName()+" "+ tradeOrderDto.getMerchantOrderNo()+"  capital confirm record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
         TradeOrder tradeOrder = tradeOrderRepository.findByMerchantOrderNo(tradeOrderDto.getMerchantOrderNo());
 
         //check if the trade order status is DRAFT, if yes, return directly, ensure idempotency.
@@ -103,8 +105,8 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
             throw new RuntimeException(e);
         }
 
-        System.out.println("capital cancel record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
-
+        log.info("capital cancel record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
+        System.out.println(tradeOrderDto.getMerchantOrderNo()+" capital cancel record called. time seq:" + DateFormatUtils.format(Calendar.getInstance(), "yyyy-MM-dd HH:mm:ss"));
         TradeOrder tradeOrder = tradeOrderRepository.findByMerchantOrderNo(tradeOrderDto.getMerchantOrderNo());
 
         //check if the trade order status is DRAFT, if yes, return directly, ensure idempotency.

@@ -32,3 +32,11 @@ server:
   port: 9093
 
 
+logging:
+  level:
+    com:
+      fancv: info
+
+
+
+

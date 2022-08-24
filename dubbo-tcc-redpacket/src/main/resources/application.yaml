@@ -70,7 +70,13 @@ spring:
       reconnect-interval-seconds: 5
   application:
     name: dubboTccOrder
+
+
 dubbo:
+  protocol:
+    name: dubbo
+    port: 20881
+    host: 192.168.0.23
   scan:
     base-packages: com.fancv.dubbo.redpacket.service
   registry:

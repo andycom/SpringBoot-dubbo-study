@@ -11,7 +11,6 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.mengyun.tcctransaction.api.Compensable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
@@ -19,7 +18,7 @@ import java.util.Calendar;
 /**
  * Created by changming.xie on 4/2/16.
  */
-@DubboService(version = "1.0.0")
+@DubboService(version = "1.0.0", retries = 0, timeout = 5000)
 public class RedPacketTradeOrderServiceImpl implements RedPacketTradeOrderService {
 
     @Autowired

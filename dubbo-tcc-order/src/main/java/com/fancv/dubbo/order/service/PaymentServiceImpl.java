@@ -1,15 +1,15 @@
 package com.fancv.dubbo.order.service;
 
+import com.fancv.dubbo.api.capital.CapitalTradeOrderService;
+import com.fancv.dubbo.api.capital.dto.CapitalTradeOrderDto;
+import com.fancv.dubbo.api.redpacket.RedPacketTradeOrderService;
+import com.fancv.dubbo.api.redpacket.dto.RedPacketTradeOrderDto;
 import com.fancv.dubbo.order.domain.entity.Order;
 import com.fancv.dubbo.order.domain.repository.OrderRepository;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.mengyun.tcctransaction.api.Compensable;
 import org.mengyun.tcctransaction.api.UniqueIdentity;
-import com.fancv.dubbo.api.capital.CapitalTradeOrderService;
-import com.fancv.dubbo.api.capital.dto.CapitalTradeOrderDto;
-import com.fancv.dubbo.api.redpacket.RedPacketTradeOrderService;
-import  com.fancv.dubbo.api.redpacket.dto.RedPacketTradeOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +21,10 @@ import java.util.Calendar;
 @Service
 public class PaymentServiceImpl {
 
-    @DubboReference(check = false,version = "1.0.0", timeout = 5000 )
+    @DubboReference(check = true, version = "1.0.0", timeout = 5000, retries = 0)
     CapitalTradeOrderService capitalTradeOrderService;
 
-    @DubboReference(check = false,validation = "1.0.0",timeout = 5000)
+    @DubboReference(check = false , validation = "1.0.0", timeout = 5000, retries = 0)
     RedPacketTradeOrderService redPacketTradeOrderService;
 
     @Autowired
@@ -36,8 +36,14 @@ public class PaymentServiceImpl {
 
         Order order = orderRepository.findByMerchantOrderNo(orderNo);
 
-        String result = capitalTradeOrderService.record(buildCapitalTradeOrderDto(order));
-        String result2 = redPacketTradeOrderService.record(buildRedPacketTradeOrderDto(order));
+
+        try {
+            String result = capitalTradeOrderService.record(buildCapitalTradeOrderDto(order));
+
+            String result2 = redPacketTradeOrderService.record(buildRedPacketTradeOrderDto(order));
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public void confirmMakePayment(String orderNo) {

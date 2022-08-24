@@ -1,7 +1,8 @@
 # Project exclude paths
 /dubbo-api/target/
-/dubbo-consumer/target/
-/dubbo-provider/target/
+/dubbo-tcc-order/target/
+/dubbo-tcc-capital/target/
+/dubbo-tcc-redpacket/target/
 /.idea/
 /SpringBoot-dubbo-study.iml
 /dubbo-api/dubbo-api.iml
@@ -10,3 +11,5 @@
 /dubbo-tcc-order/dubbo-consumer.iws
 /dubbo-provider/dubbo-provider.iml
 
+/dubbo-tcc-capital/dubbo-tcc-captial.iml
+/dubbo-tcc-redpacket/dubbo-tcc-redpacket.iml

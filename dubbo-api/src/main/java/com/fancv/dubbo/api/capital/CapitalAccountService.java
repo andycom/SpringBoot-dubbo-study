@@ -1,5 +1,7 @@
 package com.fancv.dubbo.api.capital;
 
+import org.mengyun.tcctransaction.api.EnableTcc;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,5 +9,6 @@ import java.math.BigDecimal;
  */
 public interface CapitalAccountService {
 
+    @EnableTcc
     BigDecimal getCapitalAccountByUserId(long userId);
 }
