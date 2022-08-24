@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: dev
+  tcc:
+    storage:
+      storage-type: remoting
+      domain: "TCC:DUBBO:CARD"
+    recovery:
+      recovery-enabled: true
+      update-job-forcibly: true
+    registry:
+      registry-type: direct
+      cluster-name: default
+      direct:
+        server-addresses: 127.0.0.1:12332
+      zookeeper:
+        connect-string: 127.0.0.1:2181
+        max-retries: 4
+  #      zookeeper:
+  #        connect-string: 127.0.0.1:2181
+  #        max-retries: 4
+  #      nacos:
+  #        server-addr: 127.0.0.1:8848
+  application:
+    name: dubboTccCapital
+dubbo:
+  scan:
+    base-packages: com.fancv.tcc.captial.service.impl
+  protocol:
+    name: dubbo
+    port: 20883
+  registry:
+    address: zookeeper://192.168.0.23:2181
+  application:
+    id: dubboTccCapital
+    name: dubboTccCapital
+server:
+  port: 7091
